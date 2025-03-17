@@ -3,5 +3,6 @@ self: super: {
   libosmocore-sq5bpf = (super.callPackage ./libosmocore-sq5bpf {});
   osmo-tetra-sq5bpf = (super.callPackage ./osmo-tetra-sq5bpf {});
   telive = (super.callPackage ./telive {});
+  telive-ttc = (super.callPackage ./telive-ttc {});
   qdmr = (super.callPackage ./qdmr {});
 }
