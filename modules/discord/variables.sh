@@ -2,6 +2,7 @@
 
 hhDir=${hhDir:="${HOME}/_/hh3"}
 moonlightDir=${moonlightDir:="${HOME}/_/moonlight"}
+moonlightExtensionsDir=${moonlightExtensionsDir:="${HOME}/_/moonlight-extensions-flagship"}
 moonlightPrivateDir=${moonlightPrivateDir:="${HOME}/_/moonlight-extensions-private"}
 if [[ "$(ar_get_distro)" == "macos" ]]; then
     hhConfigDir=${hhConfigDir:="${HOME}/Library/Application Support/hh3"}

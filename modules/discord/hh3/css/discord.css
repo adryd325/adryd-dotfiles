@@ -51,7 +51,8 @@ code.inline,
 }
 
 [class*="desaturateUserColors_"] {
-  filter: saturate(var(--saturation)) contrast(var(--contrast)) brightness(var(--brightness)) !important;
+  filter: saturate(var(--saturation)) contrast(var(--contrast))
+    brightness(var(--brightness)) !important;
 }
 
 /* More "cozy" spotify controls */
@@ -60,7 +61,11 @@ code.inline,
   height: 4px !important;
   border-radius: 2px;
   margin: 0 8px !important;
-  background-image: linear-gradient(var(--interactive-active), var(--interactive-active)), linear-gradient(rgba(79,84,92,.16),rgba(79,84,92,.16)) !important;
+  background-image: linear-gradient(
+      var(--interactive-active),
+      var(--interactive-active)
+    ),
+    linear-gradient(rgba(79, 84, 92, 0.16), rgba(79, 84, 92, 0.16)) !important;
 }
 
 .hh2-spotify-controls-player {
@@ -94,7 +99,6 @@ code.inline,
   overflow: visible;
 }
 
-
 .hh2-spotify-controls-track-name,
 .hh2-spotify-controls-album-name {
   text-overflow: ellipsis !important;
@@ -114,22 +118,16 @@ code.inline,
   border-radius: 4px !important;
 }
 
-/* make creatures petable. by Honbra*/
-img[alt*="cat"i],
-img[alt*="cta"i],
-img[alt*="fox"i],
-img[alt*="kitty"i],
-img[alt*="kity"i],
-img[alt*="kbity"i],
-img[alt*="kibty"i],
-img[alt*="dog"i],
-img[alt*="dgo"i],
-img[alt*="doggy"i],
-img[alt*="puppy"i],
-img[alt*="bupis"i],
-img[alt*="buppy"i],
-img[alt*="pupper"i],
-img[alt*="creature"i]
- {
-    cursor: grab;
+.mediaControls [class^="mediaBarWrapper"] {
+  height: 3px;
+}
+
+.mediaControls [class^="mediaBarWrapper"] {
+  box-shadow: unset !important;
+}
+
+.mediaControls [class^="mediaBarProgress"],
+.mediaControls [class^="mediaBarProgress"]:before,
+.mediaControls [class^="mediaBarProgress"]:after {
+  background-color: var(--text-default);
 }

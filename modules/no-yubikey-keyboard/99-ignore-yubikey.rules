@@ -1,3 +1,4 @@
+# I know that you can disable the yubiotps, however my yubikey is corporate provisioned and config locked with a password.
 ACTION=="add|change", KERNEL=="event[0-9]*", \
    ENV{ID_VENDOR_ID}=="1050", \
    ENV{ID_MODEL_ID}=="0407", \

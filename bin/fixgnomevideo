@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+ffmpeg -i "$1" -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2,fps=60" "$1.mp4"

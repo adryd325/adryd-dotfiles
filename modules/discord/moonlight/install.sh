@@ -39,6 +39,19 @@ fi
     pnpm run browser-mv2
 )
 
+AR_MODULE="discord moonlight install extensions"
+if [[ -d "${moonlightExtensionsDir}" ]]; then
+    log info "Pulling latest changes"
+    (
+        cd "${moonlightExtensionsDir}" || exit 1
+        git pull
+        log info "Installing dependencies"
+        pnpm i
+        log info "Building"
+        pnpm build
+    )
+fi
+
 AR_MODULE="discord moonlight install private"
 # Clone the repo if we don't have it, and if we might have keys
 if [[ ! -d "${moonlightPrivateDir}" ]] && [[ -e "${HOME}/.ssh" ]]; then

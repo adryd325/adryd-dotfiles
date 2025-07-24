@@ -24,7 +24,7 @@ if [[ -n "${AR_DIR}" ]]; then
         return "${includes}"
     }
 
-    for dir in /bin /usr/bin /opt/local/bin /usr/local/bin ${HOME}/.local/bin ${AR_DIR}/bin; do
+    for dir in /bin /usr/bin /opt/local/bin /usr/local/bin ${HOME}/.local/bin ${AR_DIR}/bin ${HOME}/.cargo/bin; do
         if [[ -d "${dir}" ]] && ! ar_has_path "$(realpath "${dir}")"; then
             PATH="${dir}:${PATH}"
         fi

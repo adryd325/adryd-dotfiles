@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "osmo-tetra-sq5bpf";
-  version = "d81a4c4d02d35361f92648cfbbecc12b28033304";
+  version = "4e9f1b23b460a6b24270ece685ac68d4d7fd4cc8";
 
   src = fetchFromGitHub {
-    owner = "adryd325";
+    owner = "sq5bpf";
     repo = "osmo-tetra-sq5bpf";
     rev = version;
-    sha256 = "sha256-Rtqh33FAEI9Nm1i/StKZOupLUuwGHDLGdkatumRT0K8=";
+    sha256 = "sha256-tjaf5ex+RhwAIr9U7i8ZEyyErk2oYKs5ykU6SCsCbOQ=";
   };
 
   propagatedBuildInputs = [

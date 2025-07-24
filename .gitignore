@@ -4,3 +4,5 @@ modules/discord/hh3/linux/babelCache
 modules/discord/hh3/macos/babelCache
 modules/discord/moonlight/linux/extensions
 modules/discord/moonlight/macos/extensions
+modules/nixpkgs/overlay/**/result
+bin/config.ini
