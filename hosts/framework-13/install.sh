@@ -6,7 +6,11 @@ AR_MODULE="discord linux-install"
 
 ../../modules/discord/linux-install.sh canary stable &
 ../../modules/discord/moonlight/install.sh &
-../../modules/discord/hh3/install.sh &
 wait
-../../modules/discord/moonlight/rocketship-hijack.sh canary
-../../modules/discord/moonlight/patch.sh canary
+../modules/discord/moonlight/patch.sh canary stable
+
+../../modules/inputrc/install.sh
+../../modules/no-airplane-mode-switch-fw13/install.sh
+../../modules/no-panel-power-savings-fw13/install.sh
+../../modules/no-yubikey-keyboard/install.sh
+../../modules/icon-customization/install.sh

@@ -228,14 +228,13 @@ function __ar_install_snippet_internal {
 
     local scratchfile
     scratchfile="$(ar_mktemp)/scratchfile"
-    __ar_remove_block "$3" "$4" <"${destination}" | "${run_as[@]}" tee "${scratchfile}" && "${run_as[@]}" mv "${scratchfile}" "${destination}" || return 1
-    "${run_as[@]}" rm "${scratchfile}"
+    __ar_remove_block "$3" "$4" <"${destination}" | "${run_as[@]}" tee "${scratchfile}" >/dev/null && "${run_as[@]}" mv "${scratchfile}" "${destination}" || return 1
 
-    echo "$3" | "${run_as[@]}" tee -a "${destination}"
+    echo "$3" | "${run_as[@]}" tee -a "${destination}" >/dev/null
     while read -r line; do
-        echo "${line}" | "${run_as[@]}" tee -a "${destination}"
+        echo "${line}" | "${run_as[@]}" tee -a "${destination}">/dev/null
     done </dev/stdin
-    echo "$4" | "${run_as[@]}" tee -a "${destination}"
+    echo "$4" | "${run_as[@]}" tee -a "${destination}" >/dev/null
     return 0
 }
 

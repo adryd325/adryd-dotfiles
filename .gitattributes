@@ -5,3 +5,4 @@ modules/discord/moonlight/macos/*.json filter=git-crypt diff=git-crypt
 modules/discord/moonlight/linux/*.json filter=git-crypt diff=git-crypt
 modules/mitmproxy/mitmaddon.py filter=git-crypt diff=git-crypt
 bin/usbserver filter=git-crypt diff=git-crypt
+bin/bbc* filter=git-crypt diff=git-crypt

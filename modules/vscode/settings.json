@@ -60,5 +60,6 @@
   },
   "[dockerfile]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
-  }
+  },
+  "workbench.colorTheme": "GitHub Dark Default"
 }

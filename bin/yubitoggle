@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+cd "$(dirname "$0")" || exit $?
+set -eu
+source ../lib.sh
+AR_MODULE="bad-yubikey"
+
+if [[ -f "/etc/udev/rules.d/99-99-ignore-yubikey.rules" ]]; then
+    log info "Enabling yubikey"
+    sudo rm -f "/etc/udev/rules.d/99-ignore-yubikey.rules"
+else
+    log info "Disabling yubikey"
+    ../modules/no-yubikey-keyboard/install.sh
+fi
+sudo udevadm trigger
