@@ -11,6 +11,8 @@ if [[ -n "${AR_DIR}" ]]; then
     # shellcheck source=../../lib.sh
     source "${AR_DIR}/lib.sh"
 
+    export PNPM_HOME="${HOME}/.local/share/pnpm"
+
     # normalize paths (useful for brew on macos)
     function ar_has_path {
         mapfile -td ':' splitPath <<< "${PATH}"
@@ -24,11 +26,11 @@ if [[ -n "${AR_DIR}" ]]; then
         return "${includes}"
     }
 
-    for dir in /bin /usr/bin /opt/local/bin /usr/local/bin ${HOME}/.local/bin ${AR_DIR}/bin ${HOME}/.cargo/bin; do
+    for dir in /bin /usr/bin /opt/local/bin /usr/local/bin ${HOME}/.local/bin ${AR_DIR}/bin ${HOME}/.cargo/bin ${PNPM_HOME}; do
         if [[ -d "${dir}" ]] && ! ar_has_path "$(realpath "${dir}")"; then
             PATH="${dir}:${PATH}"
         fi
-    done
+    done  
 
     for editor in nvim vim vi nano; do
         if [[ -x "$(command -v "${editor}")" ]]; then
