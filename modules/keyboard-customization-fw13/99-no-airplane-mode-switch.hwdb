@@ -1,4 +1,7 @@
 # https://askubuntu.com/questions/1301821/cant-remap-keys-on-a-microsoft-keyboard-with-hwdb
 # https://github.com/gkovacs/udev-key-remapping/tree/master
 evdev:input:b0018v32ACp0006*
-  KEYBOARD_KEY_100c6=reserved
+  KEYBOARD_KEY_100c6=home
+  
+evdev:input:b0011v0001p0001*
+  KEYBOARD_KEY_ed=end
