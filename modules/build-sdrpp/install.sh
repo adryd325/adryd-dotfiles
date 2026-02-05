@@ -19,6 +19,11 @@ esac
 
 if [[ ! -d "${repoDir}" ]]; then
     git clone https://github.com/AlexandreRouma/SDRPlusPlus "${repoDir}"
+else
+    (
+        cd "${repoDir}" || exit 1
+        git pull
+    )
 fi
 
 buildOpts=(-DOPT_BUILD_AIRSPYHF_SOURCE=off -DOPT_BUILD_BLADERF_SOURCE=off -DOPT_BUILD_FOBOSSDR_SOURCE=off -DOPT_BUILD_HACKRF_SOURCE=on -DOPT_BUILD_PLUTOSDR_SOURCE=off -DOPT_BUILD_DISCORD_PRESENCE=off)
