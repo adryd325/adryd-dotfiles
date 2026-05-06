@@ -35,8 +35,6 @@ fi
     pnpm i
     log info "Building"
     pnpm build
-    log info "Building browser-mv2"
-    pnpm run browser-mv2
 )
 
 AR_MODULE="discord moonlight install extensions"

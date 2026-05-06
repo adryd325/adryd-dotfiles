@@ -1,7 +1,7 @@
 html {
-  --font-primary: "gg sans", "Noto Sans", sans-serif !important;
-  --font-display: "gg sans", "Noto Sans", sans-serif !important;
-  --font-headline: "gg sans", "Noto Sans", sans-serif !important;
+  --font-primary: "Comic Sans MS", "Noto Sans", sans-serif !important;
+  --font-display: "Comic Sans MS", "Noto Sans", sans-serif !important;
+  --font-headline: "Comic Sans MS", "Noto Sans", sans-serif !important;
   /* Discord is silly and doesn't actually use the --font-code variable... FUN!
    * they should really ship their own monospace font */
   --font-code: "Comic Code", monospace !important;
@@ -38,21 +38,12 @@ code.inline,
 
 /* Role color adjustmets for visibility
  * In theory this should make all role colors visible on both light and dark mode */
-.theme-dark {
-  --brightness: 1.35;
-  --contrast: 0.5;
-  --saturation: 1;
+.theme-dark [class*="desaturateUserColors__"] {
+  filter: contrast(0.45) saturate(1.5) brightness(1.3) !important;
 }
 
-.theme-light {
-  --brightness: 0.8;
-  --contrast: 0.8;
-  --saturation: 1;
-}
-
-[class*="desaturateUserColors_"] {
-  filter: saturate(var(--saturation)) contrast(var(--contrast))
-    brightness(var(--brightness)) !important;
+.theme-light [class*="desaturateUserColors__"] {
+  filter: brightness(0.75) saturate(1.3) !important;
 }
 
 /* More "cozy" spotify controls */

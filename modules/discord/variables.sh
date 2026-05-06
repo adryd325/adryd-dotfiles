@@ -65,6 +65,15 @@ function get_discord_pkg_name {
     fi
 }
 
+function get_discord_config_name {
+    branch=$1
+    if [[ "${branch}" = "stable" ]]; then
+        echo "discord"
+    else
+        echo "discord${branch}"
+    fi
+}
+
 function get_discord_installation_path {
     branch=$1
     if [[ "$(ar_get_distro)" == "macos" ]]; then
@@ -80,5 +89,14 @@ function get_discord_binary_path {
         echo "/Applications/$(get_discord_pretty_name "${branch}").app/Contents/MacOS/$(get_discord_pretty_name "${branch}")"
     else
         echo "${HOME}/.local/share/$(get_discord_binary_name "${branch}")/$(get_discord_binary_name "${branch}")"
+    fi
+}
+
+function get_discord_config_path {
+    branch=$1
+    if [[ "$(ar_get_distro)" == "macos" ]]; then
+        exit 1 # not tested
+    else
+        echo "${HOME}/.config/$(get_discord_config_name "${branch}")"
     fi
 }
