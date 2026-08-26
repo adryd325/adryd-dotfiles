@@ -54,7 +54,7 @@ function log {
 # Prints created temp folder to stdout. Exits with 1 if failed
 function ar_mktemp {
     local tmpPrefix=""
-    if [[ -n "${AR_MODULE}" ]]; then
+    if [[ -n "${AR_MODULE-}" ]]; then
         tmpPrefix=".${AR_MODULE}"
     fi
     if [[ -x "$(command -v mktemp)" ]]; then
