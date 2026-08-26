@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+source "$(dirname "$0")/../lib.sh"
+set -eu
+
+#
+# Convert a deb to an rpm
+# I've only ever tested with aseprite
+# -ari
+#
+
+TEMPDIR=$(ar_mktemp)
+ORIGDIR=$(pwd)
+cp "$1" "${TEMPDIR}/target.deb"
+cd "${TEMPDIR}" || exit 1
+
+VERSION="$(dpkg-deb --field ./target.deb version)"
+NAME="$(dpkg-deb --field ./target.deb package)"
+DEBARCH="$(dpkg-deb --field ./target.deb architecture)"
+
+FULLNAME="${NAME}-${VERSION//-[0-9]*/}"
+FULLNAME_SUB="${NAME}-${VERSION}"
+SPEC="${FULLNAME}/${FULLNAME_SUB}.spec"
+
+# I hope that's all of em
+ARCH=${DEBARCH/amd64/x86_64}
+ARCH=${ARCH/arm64/aarch64}
+ARCH=${ARCH/all/noarch}
+
+#https://web.archive.org/web/20250712192443/https://www.electricmonk.nl/log/2017/02/23/how-to-solve-rpms-created-by-alien-having-file-conflicts/
+
+if [[ -d ${FULLNAME} ]]; then
+    echo -n "Going to run \`sudo rm -rf \"${FULLNAME}\"\`. Is that okay? [y/N]: "
+    read -r ask
+    if [[ $(tr '[:upper:]' '[:lower:]' <<<"${ask}") = "y" ]]; then
+        sudo rm -rf "${FULLNAME}"
+    fi
+fi
+
+sudo alien -r -g -v --bump=0 ./target.deb || exit 1
+sudo sed -i 's#%dir "/"##' "${SPEC}"
+sudo sed -i 's#%dir "/usr/bin/"##' "${SPEC}"
+
+
+# rpmbuild outputs to the parent directory? I don't care enough to find an argument
+# to prevent that
+mkdir wtf && cd wtf
+rpmbuild --target="${ARCH}" --buildroot "$(realpath "../${FULLNAME}")" \
+         -bb "../${SPEC}" || exit 1
+
+cd ..
+
+mv "${FULLNAME_SUB}.${ARCH}.rpm" "${ORIGDIR}"
+cd "${ORIGDIR}"
+sudo rm -rf "${TEMPDIR}"
+
+echo
+echo -e "\x1b[32m + ${FULLNAME_SUB}.${ARCH}.rpm"
