@@ -11,7 +11,7 @@ set -eu
 TEMPDIR=$(ar_mktemp)
 ORIGDIR=$(pwd)
 cp "$1" "${TEMPDIR}/target.deb"
-cd "${TEMPDIR}" || exit 1
+cd "${TEMPDIR}"
 
 VERSION="$(dpkg-deb --field ./target.deb version)"
 NAME="$(dpkg-deb --field ./target.deb package)"
@@ -26,8 +26,6 @@ ARCH=${DEBARCH/amd64/x86_64}
 ARCH=${ARCH/arm64/aarch64}
 ARCH=${ARCH/all/noarch}
 
-#https://web.archive.org/web/20250712192443/https://www.electricmonk.nl/log/2017/02/23/how-to-solve-rpms-created-by-alien-having-file-conflicts/
-
 if [[ -d ${FULLNAME} ]]; then
     echo -n "Going to run \`sudo rm -rf \"${FULLNAME}\"\`. Is that okay? [y/N]: "
     read -r ask
@@ -36,17 +34,15 @@ if [[ -d ${FULLNAME} ]]; then
     fi
 fi
 
-sudo alien -r -g -v --bump=0 ./target.deb || exit 1
+# https://web.archive.org/web/20250712192443/https://www.electricmonk.nl/log/2017/02/23/how-to-solve-rpms-created-by-alien-having-file-conflicts/
+sudo alien -r -g -v --bump=0 ./target.deb
 sudo sed -i 's#%dir "/"##' "${SPEC}"
 sudo sed -i 's#%dir "/usr/bin/"##' "${SPEC}"
 
-
 # rpmbuild outputs to the parent directory? I don't care enough to find an argument
 # to prevent that
-mkdir wtf && cd wtf
-rpmbuild --target="${ARCH}" --buildroot "$(realpath "../${FULLNAME}")" \
-         -bb "../${SPEC}" || exit 1
-
+mkdir buildtemp && cd buildtemp
+rpmbuild --target="${ARCH}" --buildroot "$(realpath "../${FULLNAME}")" -bb "../${SPEC}"
 cd ..
 
 mv "${FULLNAME_SUB}.${ARCH}.rpm" "${ORIGDIR}"
