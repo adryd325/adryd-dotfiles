@@ -11,8 +11,6 @@ if [[ -n "${AR_DIR}" ]]; then
     # shellcheck source=../../lib.sh
     source "${AR_DIR}/lib.sh"
 
-    export PNPM_HOME="${HOME}/.local/share/pnpm"
-
     # normalize paths (useful for brew on macos)
     function ar_has_path {
         mapfile -td ':' splitPath <<< "${PATH}"
@@ -26,21 +24,16 @@ if [[ -n "${AR_DIR}" ]]; then
         return "${includes}"
     }
 
-    for dir in /bin /usr/bin /opt/local/bin /usr/local/bin ${HOME}/.local/bin ${AR_DIR}/bin ${HOME}/.cargo/bin ${PNPM_HOME}; do
+    for dir in /bin /usr/bin /opt/local/bin /usr/local/bin ${HOME}/.local/bin ${AR_DIR}/bin; do
         if [[ -d "${dir}" ]] && ! ar_has_path "$(realpath "${dir}")"; then
             PATH="${dir}:${PATH}"
         fi
     done  
 
-    for editor in nvim vim vi nano; do
-        if [[ -x "$(command -v "${editor}")" ]]; then
-            export EDITOR="${editor}"
-            export VISUAL="${editor}"
-            break
-        fi
-    done
-
     export PATH
+
+    # shellcheck source=./environment.sh
+    source "${AR_DIR}/modules/bash/environment.sh"
 
     # Only run when interactive
     if [[ $- = *i* ]]; then
@@ -50,16 +43,8 @@ if [[ -n "${AR_DIR}" ]]; then
         source "${AR_DIR}/modules/bash/robyrussel.sh"
 
         # aliases
-        [[ -x $(command -v xdg-open) ]] && alias open='xdg-open'
-        [[ -x $(command -v yt-dlp) ]] && alias youtube-dl='yt-dlp'
-        [[ -x $(command -v xclip) ]] && alias copy='xclip -selection clipboard'
-        alias ls='ls --color=auto -v'
-        alias ll='ls --color=auto -alF'
-        alias la='ls --color=auto -A'
-        alias l='ls --color=auto -CF'
-        alias grep='grep --color=auto'
-        alias fgrep='fgrep --color=auto'
-        alias egrep='egrep --color=auto'
+        # shellcheck source=./aliases.sh
+        source "${AR_DIR}/modules/bash/aliases.sh"
 
         # glob (*) selects files that begin with a dot too
         shopt -s dotglob
@@ -74,4 +59,6 @@ if [[ -n "${AR_DIR}" ]]; then
         # shellcheck source=/dev/null
         [[ -e "/usr/share/bash-completion/bash_completion" ]] && source /usr/share/bash-completion/bash_completion
     fi
+
+    eval "$(direnv hook bash)"
 fi
