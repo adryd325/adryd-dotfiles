@@ -54,7 +54,7 @@ function install_branch {
     cp -f "${installationDir}/discord.png" "${HOME}/.local/share/icons/hicolor/256x256/${pkgName}.png" &>/dev/null
 
     log verb "Patching .desktop file"
-    sed -i "s:Exec=/usr/share/${binaryName}:Exec=/usr/bin/env \"${installationDir}/${binaryName}\":" \
+    sed -i "s:Exec=/usr/bin/${pkgName}:Exec=/usr/bin/env \"${installationDir}/${pkgName}\":" \
         "${desktopFile}"
     sed -i "s/StartupWMClass=discord/StartupWMClass=${pkgName}/" \
         "${desktopFile}"

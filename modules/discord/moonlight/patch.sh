@@ -23,7 +23,7 @@ function patch_branch_linux() {
 }
 EOF
             cat <<EOF >app/app_bootstrap/index.js
-require("${moonlightDir}/dist/injector.js").inject(require("path").resolve(__dirname + "../../../_app.asar"));require("../../_app.asar");process.mainModule = require.cache[require.resolve("../../_app.asar")];
+require("${moonlightDir}/dist/injector.js").inject(require("path").resolve(__dirname + "../../_app.asar"));require("../../_app.asar");process.mainModule = require.cache[require.resolve("../../_app.asar")];
 EOF
         )
     done
@@ -54,7 +54,7 @@ function patch_branch() {
 }
 EOF
             cat <<EOF >app/app_bootstrap/index.js
-require("${moonlightDir}/dist/injector.js").inject(require("path").resolve(__dirname + "../../_app.asar"));require("../../_app.asar");process.mainModule = require.cache[require.resolve("../../_app.asar")];
+require("${moonlightDir}/dist/injector.js").inject(require("path").resolve(__dirname + "../../../_app.asar"));require("../../_app.asar");process.mainModule = require.cache[require.resolve("../../_app.asar")];
 EOF
         )
     fi
