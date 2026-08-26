@@ -9,10 +9,10 @@ repoDir="${HOME}/_/sdrpp"
 case "$(ar_get_distro)" in
 "fedora")
     log info Installing dependencies
-    sudo dnf install -y fftw-devel volk-devel libzstd-devel glfw-devel rtaudio-devel rtl-sdr-devel libusb1-devel libtalloc-devel libmnl-devel liburing-devel libosmocore-devel airspyone_host airspyone_host-devel hackrf-devel
+    sudo dnf install -y git make gcc gcc-c++ cmake fftw-devel volk-devel libzstd-devel glfw-devel rtaudio-devel rtl-sdr-devel libusb1-devel libtalloc-devel libmnl-devel liburing-devel libosmocore-devel airspyone_host airspyone_host-devel hackrf-devel
     ;;
 *)
-    echo "module is not supported on this os"
+    echo "module is not yet supported on this os"
     exit 1
     ;;
 esac
@@ -39,7 +39,8 @@ buildOpts+=("-DOPT_BUILD_SDRPLAY_SOURCE=off")
     cd build || exit 1
     echo "${buildOpts[@]}"
     cmake .. "${buildOpts[@]}" || exit 1
-    make -j || exit 1
+    make -j2 || exit 1
     sudo make install
     ar_install_symlink_el /usr/lib/sdrpp /usr/lib64/sdrpp
+    sudo ldconfig
 ) || exit 1
