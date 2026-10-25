@@ -28,7 +28,10 @@ fi
 
 buildOpts=(-DOPT_BUILD_AIRSPYHF_SOURCE=off -DOPT_BUILD_BLADERF_SOURCE=off -DOPT_BUILD_FOBOSSDR_SOURCE=off -DOPT_BUILD_HACKRF_SOURCE=on -DOPT_BUILD_PLUTOSDR_SOURCE=off -DOPT_BUILD_DISCORD_PRESENCE=off)
 
-# buildOpts+=("-DOPT_BUILD_AIRSPY_SOURCE=off")
+# Comment to disable airspy
+#buildOpts+=("-DOPT_BUILD_AIRSPY_SOURCE=off")
+
+# Comment to disable sdrplay
 buildOpts+=("-DOPT_BUILD_SDRPLAY_SOURCE=off")
 
 (
