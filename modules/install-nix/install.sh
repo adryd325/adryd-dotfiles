@@ -2,9 +2,9 @@
 cd "$(dirname "$0")" || exit $?
 set -eu
 source ../../lib.sh
-AR_MODULE="brew"
+AR_MODULE="nix"
 
-if [[ -z "$(ls -A /nix)" ]]; then
+# if [[ -z "$(ls -A /nix)" ]]; then
     log info Handing control to Nix\'s interactive installer
     tempDir=$(ar_mktemp)
     (
@@ -20,6 +20,6 @@ if [[ -z "$(ls -A /nix)" ]]; then
             fi
         fi
     )
-fi
+    rm -rf "${tempDir}"
+# fi
 
-rm -rf "${tempDir}"
