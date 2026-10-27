@@ -1,0 +1,30 @@
+Host lemon
+  HostName 10.142.0.2
+
+Host elemon
+  HostName 10.142.0.2
+  ProxyJump adryd.com
+
+Host storage-box-1
+  HostName u620994.your-storagebox.de
+  Port 23
+  User u620994
+  ServerAliveInterval 10
+  ServerAliveCountMax 30
+  # Humber eduroam blocks port 23
+  ProxyJump adryd.com
+
+Host borg-framework-13
+  HostName u620994-sub1.your-storagebox.de
+  Port 23
+  User u620994-sub1
+  ServerAliveInterval 10
+  ServerAliveCountMax 30
+  # Humber eduroam blocks port 23
+  # ProxyJump adryd.com
+
+# Humber
+Host unity1
+  HostKeyAlgorithms ssh-rsa 
+  User service
+  HostName fe80::260:1600:47e0:11a8%%enp195s0f3u1c2

@@ -7,4 +7,4 @@ AR_MODULE="bad-yubikey"
 
 # I know that you can disable the yubiotps, however my yubikey is corporate provisioned and config locked with a password.
 log info "Installing yubikey udev rule"
-ar_install_file_el "./99-ignore-yubikey.rules" "/etc/udev/rules.d/99-ignore-yubikey.rules"
+ar_install_file_el "./99-no-yubikey-keyboard.rules" "/etc/udev/rules.d/99-no-yubikey-keyboard.rules"

@@ -1,0 +1,41 @@
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+set bell-style none
+
+# Ignore case when matching and completing paths
+set completion-ignore-case On
+
+# Treat underscores and hyphens the same way for completion purposes
+set completion-map-case On
+
+# Show me up to 5,000 completion items, don't be shy
+set completion-query-items 5000
+
+# Expand tilde to full path on completion
+set expand-tilde On
+
+# Preserve caret position while browsing through history lines
+set history-preserve-point On
+
+# When completing directories, add a trailing slash
+set mark-directories On
+
+# Do the same for symlinked directories
+set mark-symlinked-directories On
+
+# on menu-complete, first display the common prefix, then cycle through the
+# options when hitting TAB
+set menu-complete-display-prefix On
+
+# Don't paginate possible completions
+set page-completions Off
+
+# Show multiple completions on first tab press
+set show-all-if-ambiguous On
+
+# Don't re-complete already completed text in the middle of a word
+set skip-completed-text On
+
+# Show extra file information when completing, like `ls -F` does
+set visible-stats on

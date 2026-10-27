@@ -1,0 +1,61 @@
+html {
+  --font-primary: "Comic Sans MS", "Noto Sans", sans-serif !important;
+  --font-display: "Comic Sans MS", "Noto Sans", sans-serif !important;
+  --font-headline: "Comic Sans MS", "Noto Sans", sans-serif !important;
+  /* Discord is silly and doesn't actually use the --font-code variable... FUN!
+   * they should really ship their own monospace font */
+  --font-code: "Comic Code", monospace !important;
+}
+
+/* Fix fonts where they should use --font-code */
+
+[class^="markdown-"] [class^="codeInline-"],
+[class^="codeLine-"],
+[class^="codeBlockText-"],
+[class^="durationTimeDisplay-"],
+[class^="durationTimeSeparator-"],
+[class*="after_inlineCode-"],
+[class*="before_inlineCode-"],
+[class^="inlineCode-"],
+code.inline,
+code,
+.hljs {
+  font-family: var(--font-code) !important;
+}
+
+.hljs,
+code.inline,
+[class^="markdown-"] code,
+[class^="markdown-"] [class^="codeInline-"],
+[class^="codeBlockText-"],
+[class^="codeLine-"],
+[class*="after_inlineCode-"],
+[class*="before_inlineCode-"],
+[class^="inlineCode-"],
+.hljs-ansi-control-sequence {
+  font-size: 12px !important;
+}
+
+/* Role color adjustmets for visibility
+ * In theory this should make all role colors visible on both light and dark mode */
+.theme-dark [class*="desaturateUserColors__"] {
+  filter: contrast(0.45) saturate(1.5) brightness(1.3) !important;
+}
+
+.theme-light [class*="desaturateUserColors__"] {
+  filter: brightness(0.75) saturate(1.3) !important;
+}
+
+.mediaControls [class^="mediaBarWrapper"] {
+  height: 3px;
+}
+
+.mediaControls [class^="mediaBarWrapper"] {
+  box-shadow: unset !important;
+}
+
+.mediaControls [class^="mediaBarProgress"],
+.mediaControls [class^="mediaBarProgress"]:before,
+.mediaControls [class^="mediaBarProgress"]:after {
+  background-color: var(--text-default);
+}

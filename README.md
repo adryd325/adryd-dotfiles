@@ -1,39 +1,58 @@
 <pre>
 █ .adryd (adryd-dotfiles)
-█ version 7
+█ version 8
 
 $ bash -c "`curl -s adryd.co/install.sh`"
-$ bash -c "`wget -Qo- adryd.co/install.sh`"
+$ bash -c "`wget -o- adryd.co/install.sh`"
+</pre>
 
-<b>DISCLAIMER</b>: These scripts are mostly public for reference on how my 
-system is configured, or for others to extend them for their own use. These 
-scripts are very opinionated and you may not like what they do.
-
-<b>Components</b>
- - "/modules" contains components that should compatible with 2 or more families
-of operating systems / distros. Many of these assume operating systems with
-systemd and GNU utilities.
- - "/hosts" scripts 
-
-<b>Installation folder</b>
+## Installation folder
 This should be installed to "~/.adryd".
 
-<b>Windows manual instructions</b>
-Since I can't be bothered automating this
- - Install Windows IoT Enterprise LTSC
- - Bypass security questions by not entering a password at user creation stage
- - Fix Windows Store by running `wsreset -i`
- - Install Windows Terminal and App Installer
- - Install the following:
-    - 1Password
-    - Parsec
-    - ImHex
-    - disassembler of choice
-    - dnSpy
-    - USB/IP client
-    - Visual Studio Code
-    - JetBrains Rider
-    - NodeJS
-    - msbuild
-    - cmake
-    - various radio software
+## Deploying
+
+Steps that require manual intervention should be labeled with 
+`# MANUAL INTERVENTION` comments describing what steps must be taken to restore
+full functionality. An example of this are when keys are required
+
+## Maintaining
+
+
+
+### Bash style guide
+For the most part just follow 
+[Google's style guide](https://google.github.io/styleguide/shellguide.html). 
+ShellCheck will warn you about this most of the time and shfmt will normalise 
+things.
+
+Although Google's guide specifies to always header with `#!/bin/bash`, don't do
+that. Use this:
+```bash
+#!/usr/bin/env bash
+cd "$(dirname "$0")" || exit $?
+set -eu
+source ../relative/path/to/lib.sh
+AR_MODULE="module name for logging"
+```
+
+For files executed everywhere like lib, install, and download: Remember that you 
+might be running these on weird installations. MacOS's default bash is quite 
+out of date for example.
+
+### Structure
+This repo is kind of a pain to manage since I'm bearing the weight of 
+multiple rewrites and I want to keep some old stuff going. I'm also trying to 
+manage both my personal computers and also servers/containers here.
+
+```
+|- extra
+|- hosts 
+| |- container: 
+| |- desktop: these should contain *hardware specific* configurations for a 
+| |           given machine and import the modules needed
+| | |- framework-13: my primary (linux) laptop 
+| | |- macbook-pro-2020: a mac I remote into for MacOS exclusive apps like 
+| | |                    Excentro
+| \ \- iphone-15: iSH alpine for my phone
+```
+</pre>

@@ -1,0 +1,18 @@
+{
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "shfmt.executableArgs": ["-bn", "-ci"],
+  "editor.rulers": [],
+  "[shellscript]": {
+    "editor.defaultFormatter": "mkhl.shfmt",
+    "editor.rulers": [80]
+  },
+  "[markdown]": {
+    "editor.rulers": [80],
+    "editor.wordWrap": "off",
+  },
+  "[nix]": {
+    "editor.defaultFormatter": "jnoortheen.nix-ide"
+  }
+}

@@ -4,8 +4,8 @@ set -eu
 source ../../lib.sh
 AR_MODULE="gitconfig"
 
-log info "Installing gitconfig"
-ar_install_symlink "./gitconfig" "${HOME}/.gitconfig"
+ar::log info "Installing gitconfig"
+ar::install_symlink "./gitconfig" "${HOME}/.gitconfig"
 
-log info "Installing global gitignore"
-ar_install_symlink "./gitignore" "${HOME}/.gitignore"
+ar::log info "Installing global gitignore"
+ar::install_symlink "./gitignore" "${HOME}/.gitignore"
