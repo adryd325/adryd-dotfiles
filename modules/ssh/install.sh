@@ -8,16 +8,20 @@ AR_DIR="$(realpath ../../)"
 mkdir -p "${HOME}/.ssh"
 
 if ar::is_macos; then
-	os_include="Include ${AR_DIR}/modules/ssh/op_macos"
+	os_include="op_macos"
 elif ar::is_linux; then
-	os_include="Include ${AR_DIR}/modules/ssh/op_linux"
+	os_include="op_linux"
 fi
+
+ar::log info "Installing 1password identityagent config to \"${HOME}/.ssh/config\""
+ar::install_snippet "${HOME}/.ssh/config" \
+  "# adryd-dotfiles BEGIN ssha" \
+	"# adryd-dotfiles END ssha" <"./${os_include}"
 
 ar::log info "Installing ssh config to \"${HOME}/.ssh/config\""
 ar::install_snippet "${HOME}/.ssh/config" \
   "# adryd-dotfiles BEGIN ssh" \
-	"# adryd-dotfiles END ssh" <<EOF
-${os_include}
-Include ${AR_DIR}/modules/ssh/config
-EOF
+	"# adryd-dotfiles END ssh" <"./config"
 
+ar::log info "Setting permissions \"${HOME}/.ssh/config\""
+chmod 640 "${HOME}/.ssh/config"

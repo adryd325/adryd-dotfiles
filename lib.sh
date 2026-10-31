@@ -373,7 +373,7 @@ function ar::install_symlink_el {
 #######################################
 function ar::__remove_block {
 	local is_segment_started=false
-	while read -r line; do
+	while read -r line || [[ -n "${line}" ]]; do
 		if [[ "$1" = "${line}" ]]; then
 			is_segment_started=true
 			continue
@@ -444,10 +444,10 @@ ar::__remove_block failed"
 		"${run_as[@]}" tee -a "${destination}" >/dev/null
 
 	# Write contents
-	while read -r line; do
+	IFS=''
+	while read -r line || [[ -n "${line}" ]]; do
 		echo "${line}" | "${run_as[@]}" tee -a "${destination}" >/dev/null
 	done <&0
-
 	# Write block_string_end
 	echo "${block_string_end}" | "${run_as[@]}" tee -a "${destination}" >/dev/null
 	
