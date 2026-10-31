@@ -11,13 +11,13 @@ echo -en "\n \x1b[30;46m \x1b[0m .adryd\n \x1b[30;46m \x1b[0m version 8\n\n"
 function askRun {
 	ar::log ask "Detected installation script for this host. Run script \"$1\"? [Y/n]: "
 	read -r ask
-	if [[ $(tr '[:upper:]' '[:lower:]' <<<"${ask}") != "n" ]]; then "$@"; fi
+	if [[ $(echo "${ask}" | tr '[:upper:]' '[:lower:]') != "n" ]]; then "$@"; fi
 }
 
 function ask {
 	ar::log ask "$1 [Y/n]: "
 	read -r ask
-	if [[ $(tr '[:upper:]' '[:lower:]' <<<"${ask}") != "n" ]]; then return 0; fi
+	if [[ $(echo tr "${ask}" | tr '[:upper:]' '[:lower:]') != "n" ]]; then return 0; fi
 	return 1
 }
 
@@ -42,11 +42,13 @@ case "${HOSTNAME}" in
 		[[ "${USER}" != "root" ]] && askRun ./hosts/desktop/framework-13/install.sh
 		;;
 	"localhost")
-		[[ "${USER}" = "root" && -e /ish ]] && askRun ./hosts/desktop/iphone-15/install.sh
+		if [[ "${USER}" = "root" && -e /ish ]]; then
+		  askRun ./hosts/desktop/iphone-15/install.sh
+		fi
 		;;
 	*)
 		ar::log info "No run configuration found for this host"
 		;;
 esac
 
-./init-git.sh
+./init_git.sh

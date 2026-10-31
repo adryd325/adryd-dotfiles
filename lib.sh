@@ -385,7 +385,7 @@ function ar::__remove_block {
 			continue
 		fi
 		echo "${line}"
-	done </dev/stdin
+	done <&0
 
 	if [[ "${is_segment_started}" = true ]]; then
 		ar::__lib_log error __remove_block "unexpected end of input"
@@ -446,7 +446,7 @@ ar::__remove_block failed"
 	# Write contents
 	while read -r line; do
 		echo "${line}" | "${run_as[@]}" tee -a "${destination}" >/dev/null
-	done </dev/stdin
+	done <&0
 
 	# Write block_string_end
 	echo "${block_string_end}" | "${run_as[@]}" tee -a "${destination}" >/dev/null
@@ -466,7 +466,7 @@ ar::__remove_block failed"
 #   Trailer for section
 #######################################
 function ar::install_snippet {
-	ar::__install_snippet_internal false "$@" </dev/stdin
+	ar::__install_snippet_internal false "$@" <&0
 }
 
 #######################################
@@ -481,7 +481,7 @@ function ar::install_snippet {
 #   Trailer for section
 #######################################
 function ar::install_snippet_el {
-	ar::__install_snippet_internal true "$@" </dev/stdin
+	ar::__install_snippet_internal true "$@" <&0
 }
 
 #######################################
