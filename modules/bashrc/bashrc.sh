@@ -154,7 +154,14 @@ function ar::bashrc::history {
 function ar::bashrc::aliases {
 	[[ -x $(command -v xdg-open) ]] && alias open='xdg-open'
 	[[ -x $(command -v yt-dlp) ]] && alias youtube-dl='yt-dlp'
-	[[ -x $(command -v xclip) ]] && alias copy='xclip -selection clipboard'
+	# shellcheck disable=SC2154
+	if [[ "${XDG_SESSION_TYPE}" = "wayland" && -x $(command -v wl-copy) ]]; then
+		alias copy='wl-copy'
+		alias xclip='wl-copy'
+		alias xpaste='wl-paste'
+	elif [[ -x $(command -v xclip) ]]; then
+		alias copy='xclip -selection clipboard'
+	fi
 	alias ls='ls --color=auto -v'
 	alias la='ls --color=auto -vA'
 	alias l='ls --color=auto -lahvF'

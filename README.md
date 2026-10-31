@@ -15,10 +15,6 @@ Steps that require manual intervention should be labeled with
 `# MANUAL INTERVENTION` comments describing what steps must be taken to restore
 full functionality. An example of this are when keys are required
 
-## Maintaining
-
-
-
 ### Bash style guide
 For the most part just follow 
 [Google's style guide](https://google.github.io/styleguide/shellguide.html). 
@@ -53,6 +49,6 @@ manage both my personal computers and also servers/containers here.
 | | |- framework-13: my primary (linux) laptop 
 | | |- macbook-pro-2020: a mac I remote into for MacOS exclusive apps like 
 | | |                    Excentro
-| \ \- iphone-15: iSH alpine for my phone
+| \ \- iphone-15: iSH alpine for my phone because it's funny
 ```
 </pre>

@@ -8,3 +8,7 @@ AR_MODULE="framework-13"
 ../../../modules/inputrc/install.sh
 ../../../modules/gitconfig/install.sh
 ../../../modules/ssh/install.sh
+
+ar::log info "Building and switching flake"
+sudo nixos-rebuild boot --flake ../../../nix
+sudo nixos-rebuild switch --flake ../../../nix

@@ -14,7 +14,7 @@
     inputs.laminix.nixosModules.default
     "${modulesPath}/installer/scan/not-detected.nix"
     "${ar_dir}/modules/nixos-desktop/nixos/services/syncthing.nix"
-    "${ar_dir}/modules/nixos-desktop/nixos/services/borg/default.nix"
+    "${ar_dir}/modules/nixos-desktop/nixos/services/borg.nix"
   ];
 
   environment.laminix.enable = true;
@@ -73,6 +73,8 @@
     wireshark
     helvum
     libreoffice
+    shfmt
+    wl-clipboard
     # inkscape
   ];
 
@@ -84,7 +86,6 @@
 		};
 		flake = "${ar_dir}/nix";
 	};
-
 
   programs._1password.enable = true;
   programs._1password-gui = {

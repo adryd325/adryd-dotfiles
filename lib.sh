@@ -284,7 +284,7 @@ function ar::__install_internal {
 		fi
 
 		if [[ "${type}" = "file" ]] &&
-			"${run_as[@]}" cmp -sh "${source}" "${destination}"; then
+			"${run_as[@]}" cmp -s "${source}" "${destination}"; then
 			return 0
 		fi
 
