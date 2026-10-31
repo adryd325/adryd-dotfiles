@@ -25,7 +25,7 @@ if [[ -d .git ]]; then
 	exit
 fi
 
-if ar::chk_command_line_tools || ! [[ -x "$(command -v git)" ]]; then
+if ! ar::chk_command_line_tools || ! [[ -x "$(command -v git)" ]]; then
 	exit
 fi
 
