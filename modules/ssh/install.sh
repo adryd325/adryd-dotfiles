@@ -15,13 +15,13 @@ fi
 
 ar::log info "Installing 1password identityagent config to \"${HOME}/.ssh/config\""
 ar::install_snippet "${HOME}/.ssh/config" \
-  "# adryd-dotfiles BEGIN ssha" \
-	"# adryd-dotfiles END ssha" <"./${os_include}"
+  "# adryd-dotfiles BEGIN sshagent" \
+	"# adryd-dotfiles END sshagent" <"./${os_include}"
 
 ar::log info "Installing ssh config to \"${HOME}/.ssh/config\""
 ar::install_snippet "${HOME}/.ssh/config" \
   "# adryd-dotfiles BEGIN ssh" \
 	"# adryd-dotfiles END ssh" <"./config"
 
-ar::log info "Setting permissions \"${HOME}/.ssh/config\""
+ar::log info "Setting permissions on \"${HOME}/.ssh/config\""
 chmod 640 "${HOME}/.ssh/config"
