@@ -6,17 +6,15 @@ AR_MODULE="vscode"
 
 # Set dataDir
 dataDir="${HOME}/.config/Code"
-[[ "$(ar_get_distro)" = "macos" ]] && dataDir="${HOME}/Library/Application Support/Code"
+ar::is_macos && dataDir="${HOME}/Library/Application Support/Code"
 
-log info Installing config "${dataDir}/User/settings.json"
+ar::log info Installing config "${dataDir}/User/settings.json"
 mkdir -p "${dataDir}/User"
-ar_install_symlink "./settings.json" "${dataDir}/User/settings.json"
+ar::install_symlink "./settings.json" "${dataDir}/User/settings.json"
 
 source ./extension-list.sh
 
-# For each extension
 for extension in "${extensions[@]}"; do
-    # Install it
-    log info "Installing ${extension}"
-    code --install-extension "${extension}" &>/dev/null
+  ar::log info "Installing ${extension}"
+  code --install-extension "${extension}" &>/dev/null
 done

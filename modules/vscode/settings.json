@@ -1,87 +1,33 @@
 {
   "telemetry.telemetryLevel": "off",
   "editor.fontFamily": "'Comic Code', 'monospace', monospace",
-  "editor.fontSize": 14.5,
+  "editor.fontSize": 14,
   "terminal.integrated.fontFamily": "'Comic Code', 'monospace', monospace",
-  "terminal.integrated.fontSize": 14.5,
+  "terminal.integrated.fontSize": 14,
   "window.titleBarStyle": "custom",
   "editor.suggest.showWords": false,
   "rust-analyzer.trace.extension": true,
   "workbench.iconTheme": null,
-
+  "chat.disableAIFeatures": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "[scss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-  },
-  "editor.rulers": [80, 120],
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "[css]": {
-    "editor.defaultFormatter": "stylelint.vscode-stylelint",
-  },
-  "[mdx]": {
-    "editor.defaultFormatter": "unifiedjs.vscode-mdx",
-  },
-  "github.copilot.enable": {
-    "*": false,
-    "plaintext": false,
-    "markdown": false,
-    "scminput": false,
-  },
   "workbench.editor.empty.hint": "hidden",
-  "files.associations": {
-    "Caddyfile": "plaintext",
-  },
-  "[dotenv]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format",
-  },
-  "[shellscript]": {
-    "editor.defaultFormatter": "shakram02.bash-beautify",
-  },
   "git.blame.editorDecoration.enabled": true,
-  "[cpp]": {
-    "editor.defaultFormatter": "ms-vscode.cpptools",
-  },
-  "[xml]": {
-    "editor.defaultFormatter": "redhat.vscode-xml",
-  },
-  "[astro]": {
-    "editor.defaultFormatter": "astro-build.astro-vscode",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "files.associations": {
+    "Caddyfile": "plaintext"
   },
   "workbench.experimental.modernUI": true,
-  "workbench.editorAssociations": {
-    "{hexdiff}:/**/*.*": "hexEditor.hexedit",
-    "*.svg": "default"
+  "[shellscript]": {
+    "editor.defaultFormatter": "mkhl.shfmt",
+    "editor.rulers": [80]
   },
-  "[rust]": {
-    "editor.defaultFormatter": "rust-lang.rust-analyzer"
+  "[markdown]": {
+    "editor.rulers": [80],
+    "editor.wordWrap": "off"
   },
-  "[c]": {
-    "editor.defaultFormatter": "ms-vscode.cpptools"
-  },
-  "chat.titleBar.openInAgentsWindow.enabled": false,
-  "chat.disableAIFeatures": true,
   "[nix]": {
     "editor.defaultFormatter": "jnoortheen.nix-ide"
   },
+  // end manually configured section
+  "workbench.colorTheme": "Mellow-Minimal"
 }

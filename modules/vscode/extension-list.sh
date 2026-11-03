@@ -1,35 +1,37 @@
 #!/usr/bin/env bash
 export extensions=(
     # Misc
-    ms-vscode.hexeditor
     ms-vsliveshare.vsliveshare
-    usernamehw.errorlens
-    cab404.vscode-direnv
-    eamodio.gitlens
+		EditorConfig.EditorConfig
 
-    #
+		# Theme
+		umi-l.mellow-minimal-theme
+
+    # Structured Data
     redhat.vscode-xml
+		mechatroner.rainbow-csv
 
     # Javascript
     dbaeumer.vscode-eslint
     esbenp.prettier-vscode
 
+		# Markup Langs
+		astro-build.astro-vscode
+		unifiedjs.vscode-mdx
+
+		# CSS
+		stylelint.vscode-stylelint
+
     # Bash
     timonwong.shellcheck
-
-    # Rust
-    rust-lang.rust-analyzer
-
-    # C
-    ms-vscode.cpptools
-
-    # Java
-    redhat.java
-    vscjava.vscode-java-pack
+    mkhl.shfmt
 
     # Nix
     jnoortheen.nix-ide
 
-    # Python
-    ms-python.black-formatter
+		# Rust
+		rust-lang.rust-analyzer
+
+		# C/CPP
+		ms-vscode.cpptools-extension-pack
 )
