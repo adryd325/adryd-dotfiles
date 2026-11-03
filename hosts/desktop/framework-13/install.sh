@@ -4,10 +4,13 @@ set -eu
 source ../../../lib.sh
 AR_MODULE="framework-13"
 
-../../../modules/bashrc/install.sh
-../../../modules/inputrc/install.sh
-../../../modules/gitconfig/install.sh
-../../../modules/ssh/install.sh
+../../../modules/bashrc/install.sh &
+../../../modules/inputrc/install.sh &
+../../../modules/gitconfig/install.sh &
+../../../modules/ssh/install.sh &
+../../../modules/vscode/install.sh &
+
+wait
 
 ar::log info "Building and switching flake"
 sudo nixos-rebuild boot --flake ../../../nix

@@ -3,7 +3,6 @@ cd "$(dirname "$0")" || exit $?
 set -eu
 source ../../lib.sh
 AR_MODULE="ssh"
-AR_DIR="$(realpath ../../)"
 
 mkdir -p "${HOME}/.ssh"
 

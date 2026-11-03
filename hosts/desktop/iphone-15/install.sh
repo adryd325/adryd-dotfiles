@@ -7,11 +7,10 @@ AR_MODULE="iphone-15"
 ar::log info installing extra packages
 apk add curl git nano openssh
 
-../../../modules/bashrc/install.sh
-echo "source ./.bashrc" > "${HOME}/.bash_profile"
-
-../../../modules/inputrc/install.sh
-../../../modules/ssh/install.sh
+../../../modules/bashrc/install.sh &
+../../../modules/inputrc/install.sh &
+../../../modules/ssh/install.sh &
+echo "source ./.bashrc" > "${HOME}/.bash_profile" &
 
 ar::log setting motd
 echo "" > /etc/motd
