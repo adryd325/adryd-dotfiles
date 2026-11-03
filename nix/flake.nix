@@ -6,6 +6,10 @@
       url = "github:jackboykin/laminix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # home-manager = {
     # 	url = "github:nix-community/home-manager";
     # 	inputs.nixpkgs.follows = "nixpkgs";
@@ -17,7 +21,7 @@
   };
 
   outputs =
-    { self, nixpkgs, laminix }@inputs:
+    { self, nixpkgs, laminix, stylix }@inputs:
     let
       baseSystem = {
         args = {
@@ -28,7 +32,8 @@
         };
 
         modules = [
-
+          inputs.laminix.nixosModules.default
+          inputs.stylix.nixosModules.stylix
         ];
       };
     in

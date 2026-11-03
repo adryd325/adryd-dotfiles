@@ -6,80 +6,49 @@
   ar_dir,
   ...
 }:
-let
-  getPasswordScript = pkgs.writeShellScript "get_password.sh" ''
+let 
+  # TODO: investigate using systemd-run to get rid of these hardcoded DBUS addresses
+
+  getPasswordScript = pkgs.writeShellScript "borg_get_password.sh" ''
     export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/''${UID}/bus
     export XDG_RUNTIME_DIR=/run/user/''${UID}
     export DISPLAY=:0
+    
+    # lib.getExe' doesn't seem to behave as expected here. op cant connect to the desktop app socket if I use it.
     /run/wrappers/bin/op read "$1"
   '';
-  # https://wiki.nixos.org/wiki/Borg_backup#Notifications_when_backup_fails
-  borgbackupMonitor =
-    {
-      config,
-      pkgs,
-      lib,
-      ...
-    }:
-    with lib;
-    {
-      key = "borgbackupMonitor";
-      _file = "borgbackupMonitor";
-      config.systemd.services = {
-        "borg-notify-problems@" = {
-          enable = true;
-          environment.SERVICE = "%i";
-          script = ''
-            ${lib.getExe' pkgs.systemd "systemd-run"} --machine=${username}@.host --user \
-              ${lib.getExe' pkgs.libnotify "notify-send"} --app-name="Borg Backups" -u critical \
-              "$SERVICE Exited with errors!" "Run journalctl -u $SERVICE for details"
-          '';
-        };
 
-        "borg-notify-success@" = {
-          enable = true;
-          environment.SERVICE = "%i";
-          script = ''
-            ${lib.getExe' pkgs.systemd "systemd-run"} --machine=${username}@.host --user \
-              ${lib.getExe' pkgs.libnotify "notify-send"} --app-name="Borg Backups" \
-              "$SERVICE finished without errors!"
-          '';
-        };
-      }
-      // flip mapAttrs' config.services.borgbackup.jobs (
-        name: value:
-        nameValuePair "borgbackup-job-${name}" {
-          unitConfig.OnFailure = "borg-notify-problems@%i.service";
-          unitConfig.OnSuccess = "borg-notify-success@%i.service";
-          preStart = lib.mkBefore ''
-            # waiting for internet after resume-from-suspend
-            until ${lib.getExe' pkgs.iputils "ping"} your-storagebox.de -c1 -q >/dev/null; do :; done
-            # notify me that backups are starting
-            export DISPLAY=:0
-            export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
-            ${lib.getExe' pkgs.libnotify "notify-send"} --app-name="Borg Backups" \
-              "borgbackup-job-${name} is starting" \
-              "Run journalctl -fu borgbackup-job-${name}.service to follow logs"
-          '';
-        }
-      );
+  beforeStartScript = pkgs.writeShellScript "borg_preHook.sh" ''
+    # waiting for internet after resume-from-suspend
+    until ${lib.getExe' pkgs.iputils "ping"} your-storagebox.de -c1 -q >/dev/null; do :; done
+    
+    export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/''${UID}/bus
+    export XDG_RUNTIME_DIR=/run/user/''${UID}
+    export DISPLAY=:0
+    
+    ${lib.getExe' pkgs.libnotify "notify-send"} --app-name="Borg" -u critical --wait --transient \
+      "Backups is starting momentarily." "Make sure 1Password is running for password prompts and SSH to succeed" &
+    NOTIF_PID=$!
+    sleep 15
+    ${lib.getExe' pkgs.coreutils "kill"} -s int $NOTIF_PID || true
+  
+  '';
 
-      # optional, but this actually forces backup after boot in case laptop was powered off during scheduled event
-      # for example, if you scheduled backups daily, your laptop should be powered on at 00:00
-      config.systemd.timers = flip mapAttrs' config.services.borgbackup.jobs (
-        name: value:
-        nameValuePair "borgbackup-job-${name}" {
-          timerConfig.Persistent = lib.mkDefault true;
-        }
-      );
-    };
+  beforeEndScript = pkgs.writeShellScript "borg_postHook.sh" ''
+    export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/''${UID}/bus
+    export XDG_RUNTIME_DIR=/run/user/''${UID}
+    export DISPLAY=:0
 
+    if [[ "''${exitStatus}" != 0 && -n "''${exitStatus}" ]]; then
+      ${lib.getExe' pkgs.libnotify "notify-send"} --app-name="Borg" -u critical \
+      "Borg exited with errors! (Exit ''${exitStatus})" "Run journalctl -eu borgbackup-job-home for details" 
+    else
+      ${lib.getExe' pkgs.libnotify "notify-send"} --app-name="Borg" \
+      "Backup complete" "Borg backup finished without errors! yippee :)"
+    fi
+  '';
 in
 {
-  imports = [
-    borgbackupMonitor
-  ];
-
   # https://wiki.nixos.org/wiki/Borg_backup
   services.borgbackup.jobs = {
     # Force run: systemctl start borgbackup-job-home
@@ -98,6 +67,9 @@ in
         "--checkpoint-interval"
         "600"
       ];
+      preHook = ''${beforeStartScript}'';
+      postHook = ''${beforeEndScript}'';
+      persistentTimer = true;
       doInit = false;
       repo = "ssh://borg-framework-13/home/backup";
       compression = "auto,zstd";

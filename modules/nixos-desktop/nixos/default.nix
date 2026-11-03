@@ -11,7 +11,6 @@
   i18n.defaultLocale = "en_CA.UTF-8";
 
   imports = [
-    inputs.laminix.nixosModules.default
     "${modulesPath}/installer/scan/not-detected.nix"
     "${ar_dir}/modules/nixos-desktop/nixos/services/syncthing.nix"
     "${ar_dir}/modules/nixos-desktop/nixos/services/borg.nix"
@@ -111,6 +110,7 @@
   users.users.${username} = {
     isNormalUser = true;
     description = username;
+    initialPassword = "Passw0rd";
     extraGroups = [
       "wheel"
       "networkmanager"
@@ -159,8 +159,8 @@
   ];
 
   environment.extraInit = ''
-  export XDG_DATA_DIRS="$XDG_DATA_DIRS:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
-'';
+    export XDG_DATA_DIRS="$XDG_DATA_DIRS:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
+  '';
 
   services = {
     # avahi required for service discovery
@@ -212,4 +212,69 @@
     };
 
   };
+
+  stylix.enable = true;
+	stylix.autoEnable = false;
+	stylix.enableReleaseChecks = false;
+
+	stylix.base16Scheme = {
+		scheme = "Mellow - Edit";
+		base00 = "#141212";
+		base01 = "#1d1b1b";
+		base02 = "#433e3e";
+		base03 = "#5f5757";
+		base04 = "#817575";
+		base05 = "#c9c7cd";
+		base06 = "#e3e2e5";
+		base07 = "#ffffff";
+		base08 = "#ea83a5";
+		base09 = "#f5a091";
+		base0A = "#e6b99d";
+		base0B = "#90b99f";
+		base0C = "#85b5ba";
+		base0D = "#aca1cf";
+		base0E = "#e29eca";
+		base0F = "#a89898";
+		base10 = "#2d2a2a";
+		base11 = "#393535";
+		base12 = "#f591b2";
+		base13 = "#9dc6ac";
+		base14 = "#f0c5a9";
+		base15 = "#b9aeda";
+		base16 = "#ecaad6";
+		base17 = "#99c9ce";
+	};
+
+	stylix.polarity = "dark";
+
+	stylix.opacity = {
+		applications = 0.8;
+	};
+
+	stylix.fonts = {
+		sizes = {
+			applications = 10;
+		};
+		sansSerif = {
+			package = pkgs.inter;
+			name = "Inter Display";
+		};
+		serif = {
+			package = pkgs.inter;
+			name = "Inter Display";
+		};
+		monospace = {
+			package = pkgs.agave;
+			name = "Agave";
+		};
+		emoji = {
+			package = pkgs.noto-fonts-monochrome-emoji;
+			name = "Noto Emoji";
+		};
+	};
+
+	stylix.targets.console.enable = true;
+	stylix.targets.gtk.enable = true;
+	stylix.targets.nixos-icons.enable = true;
+	stylix.targets.fontconfig.enable = true;
 }
