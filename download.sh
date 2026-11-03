@@ -17,6 +17,8 @@ fi
 [ -z "${AR_REMOTE_GIT_HTTPS}" ] && AR_REMOTE_GIT_HTTPS="https://github.com/adryd325/adryd-dotfiles.git"
 [ -z "${AR_REMOTE_GIT_SSH}" ] && AR_REMOTE_GIT_SSH="git@github.com:adryd325/adryd-dotfiles.git"
 
+[ -z "${AR_IGNORE_SSL}" ] && AR_IGNORE_SSL=false
+
 extract() {
 	if [ -x "$(command -v tar)" ]; then
 		echo "Extracting dotfiles bundle (tar)"
@@ -35,7 +37,6 @@ extract() {
 
 download() {
 	# If we have git
-	# TODO: Check if we don't actually have command-line tools so macOS shuts up
 	if [ -x "$(command -v git)" ]; then
 		if [ -f "${HOME}/.ssh/id_ed25519" ] || [ -f "${HOME}/.ssh/id_rsa" ]; then
 			echo "Cloning dotfiles repo (git+ssh)"
@@ -55,14 +56,24 @@ download() {
 
 		if [ -x "$(command -v curl)" ]; then
 			echo "Downloading dotfiles bundle (curl)"
-			curl -sSo "adryd-dotfiles-main.tar" "${AR_REMOTE_HTTPS_TAR}"
+			if [ "${AR_IGNORE_SSL}" = true ]; then
+				curl -ksSLo "adryd-dotfiles-main.tar" "${AR_REMOTE_HTTPS_TAR}"
+			else
+				curl -sSLo "adryd-dotfiles-main.tar" "${AR_REMOTE_HTTPS_TAR}"
+			fi
+
 			[ -f "adryd-dotfiles-main.tar" ] && extract "adryd-dotfiles-main.tar" && return
 			echo "Failed to download (curl)"
 		fi
 
 		if [ -x "$(command -v wget)" ]; then
 			echo "Downloading dotfiles bundle (wget)"
-			wget -qO "adryd-dotfiles-main.tar" "${AR_REMOTE_HTTPS_TAR}"
+			if [ "${AR_IGNORE_SSL}" = true ]; then
+				wget --no-check-certificate -qO "adryd-dotfiles-main.tar" "${AR_REMOTE_HTTPS_TAR}"
+			else
+				wget -qO "adryd-dotfiles-main.tar" "${AR_REMOTE_HTTPS_TAR}"
+			fi
+
 			[ -f "adryd-dotfiles-main.tar" ] && extract "adryd-dotfiles-main.tar" && return
 			echo "Failed to download (wget)"
 		fi
@@ -92,17 +103,16 @@ ask() {
 }
 
 checkbash() {
-if [ ! -e "$(command -v bash)" ]; then
-	prompt="Bash doesn't seem to be installed. Try install it?"
-	[ -x "$(command -v apk)" ] && ask "${prompt}" && apk add bash && return 0
-	[ -x "$(command -v pacman)" ] && ask "${prompt}" && pacman -S bash && return 0
-	[ -x "$(command -v apt)" ] && ask "${prompt}" && apt-get install bash -y && return 0
-	[ -x "$(command -v dnf)" ] && ask "${prompt}" && dnf install bash -y && return 0
-	echo "Bash is not installed, can't continue :("
-	exit 1
-fi
+	if [ ! -e "$(command -v bash)" ]; then
+		prompt="Bash doesn't seem to be installed. Try install it?"
+		[ -x "$(command -v apk)" ] && ask "${prompt}" && apk add bash && return 0
+		[ -x "$(command -v pacman)" ] && ask "${prompt}" && pacman -S bash && return 0
+		[ -x "$(command -v apt)" ] && ask "${prompt}" && apt-get install bash -y && return 0
+		[ -x "$(command -v dnf)" ] && ask "${prompt}" && dnf install bash -y && return 0
+		echo "Bash is not installed, can't continue :("
+		exit 1
+	fi
 }
-
 
 download || exit 1
 echo "Downloaded to ${AR_DIR}"

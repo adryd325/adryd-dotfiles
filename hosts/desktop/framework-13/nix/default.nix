@@ -3,6 +3,7 @@
   lib,
   pkgs,
   ar_dir,
+  modulesPath,
   ...
 }:
 
@@ -11,6 +12,7 @@
     ./no-airplane-mode-switch/default.nix
     "${ar_dir}/modules/nixos-desktop/nixos/default.nix"
     "${ar_dir}/modules/no-yubikey-keyboard/default.nix"
+		"${modulesPath}/installer/scan/not-detected.nix"
   ];
 
   networking.hostName = "framework-13";

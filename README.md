@@ -50,5 +50,7 @@ manage both my personal computers and also servers/containers here.
 | | |- macbook-pro-2020: a mac I remote into for MacOS exclusive apps like 
 | | |                    Excentro
 | \ \- iphone-15: iSH alpine for my phone because it's funny
+|- modules:
+| |
 ```
 </pre>
