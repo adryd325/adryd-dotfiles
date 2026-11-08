@@ -8,7 +8,7 @@
 }:
 let 
   # TODO: investigate using systemd-run to get rid of these hardcoded DBUS addresses
-
+  
   getPasswordScript = pkgs.writeShellScript "borg_get_password.sh" ''
     export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/''${UID}/bus
     export XDG_RUNTIME_DIR=/run/user/''${UID}
@@ -54,6 +54,17 @@ in
     # Force run: systemctl start borgbackup-job-home
     # Command for manual OPs: borg-job-home
     home = {
+
+      preHook = ''${beforeStartScript}'';
+      postHook = ''${beforeEndScript}'';
+      
+      persistentTimer = true;
+      startAt = "daily";
+      user = "${username}";
+
+      doInit = false;
+      repo = "ssh://borg-framework-13/home/backup";
+      compression = "auto,zstd";
       paths = "/home/${username}";
       encryption = {
         mode = "repokey";
@@ -67,14 +78,6 @@ in
         "--checkpoint-interval"
         "600"
       ];
-      preHook = ''${beforeStartScript}'';
-      postHook = ''${beforeEndScript}'';
-      persistentTimer = true;
-      doInit = false;
-      repo = "ssh://borg-framework-13/home/backup";
-      compression = "auto,zstd";
-      startAt = "daily";
-      user = "${username}";
       exclude = [
         "*/_pycache__"
         "*/node_modules"

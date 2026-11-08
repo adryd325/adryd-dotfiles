@@ -74,17 +74,18 @@
     libreoffice
     shfmt
     wl-clipboard
-    # inkscape
+    inkscape
+    gimp
   ];
 
   programs.nh = {
-		enable = true;
-		clean = {
-			enable = true;
-			extraArgs = "--keep 5 --keep-since 3d";
-		};
-		flake = "${ar_dir}/nix";
-	};
+    enable = true;
+    clean = {
+      enable = true;
+      extraArgs = "--keep 5 --keep-since 3d";
+    };
+    flake = "${ar_dir}/nix";
+  };
 
   programs._1password.enable = true;
   programs._1password-gui = {
@@ -94,6 +95,35 @@
 
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
+
+  # services.desktopManager.pantheon.enable = true;
+  # services.xserver.displayManager.lightdm.enable = true;
+  # services.xserver.enable = true;
+
+  # services.displayManager.ly = {
+  #   enable = true;
+  #   x11Support = false;
+  #   settings = {
+
+  #   };
+  # };
+
+  # xdg.portal = {
+  #   enable = true;
+  #   extraPortals = with pkgs; [
+  #     xdg-desktop-portal-gtk
+  #     kdePackages.xdg-desktop-portal-kde
+  #   ];
+
+  #   config.common = {
+  #     default = [
+  #       "gtk"
+  #       "kde"
+  #     ];
+  #     "org.freedesktop.impl.portal.Secret" = [ "kde" ];
+  #     "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
+  #   };
+  # };
 
   virtualisation.docker = {
     enable = true;
@@ -214,67 +244,67 @@
   };
 
   stylix.enable = true;
-	stylix.autoEnable = false;
-	stylix.enableReleaseChecks = false;
+  stylix.autoEnable = false;
+  stylix.enableReleaseChecks = false;
 
-	stylix.base16Scheme = {
-		scheme = "Mellow - Edit";
-		base00 = "#141212";
-		base01 = "#1d1b1b";
-		base02 = "#433e3e";
-		base03 = "#5f5757";
-		base04 = "#817575";
-		base05 = "#c9c7cd";
-		base06 = "#e3e2e5";
-		base07 = "#ffffff";
-		base08 = "#ea83a5";
-		base09 = "#f5a091";
-		base0A = "#e6b99d";
-		base0B = "#90b99f";
-		base0C = "#85b5ba";
-		base0D = "#aca1cf";
-		base0E = "#e29eca";
-		base0F = "#a89898";
-		base10 = "#2d2a2a";
-		base11 = "#393535";
-		base12 = "#f591b2";
-		base13 = "#9dc6ac";
-		base14 = "#f0c5a9";
-		base15 = "#b9aeda";
-		base16 = "#ecaad6";
-		base17 = "#99c9ce";
-	};
+  stylix.base16Scheme = {
+    scheme = "Mellow - Edit";
+    base00 = "#141212";
+    base01 = "#1d1b1b";
+    base02 = "#433e3e";
+    base03 = "#5f5757";
+    base04 = "#817575";
+    base05 = "#c9c7cd";
+    base06 = "#e3e2e5";
+    base07 = "#ffffff";
+    base08 = "#ea83a5";
+    base09 = "#f5a091";
+    base0A = "#e6b99d";
+    base0B = "#90b99f";
+    base0C = "#85b5ba";
+    base0D = "#aca1cf";
+    base0E = "#e29eca";
+    base0F = "#a89898";
+    base10 = "#2d2a2a";
+    base11 = "#393535";
+    base12 = "#f591b2";
+    base13 = "#9dc6ac";
+    base14 = "#f0c5a9";
+    base15 = "#b9aeda";
+    base16 = "#ecaad6";
+    base17 = "#99c9ce";
+  };
 
-	stylix.polarity = "dark";
+  stylix.polarity = "dark";
 
-	stylix.opacity = {
-		applications = 0.8;
-	};
+  stylix.opacity = {
+    applications = 0.8;
+  };
 
-	stylix.fonts = {
-		sizes = {
-			applications = 10;
-		};
-		sansSerif = {
-			package = pkgs.inter;
-			name = "Inter Display";
-		};
-		serif = {
-			package = pkgs.inter;
-			name = "Inter Display";
-		};
-		monospace = {
-			package = pkgs.agave;
-			name = "Agave";
-		};
-		emoji = {
-			package = pkgs.noto-fonts-monochrome-emoji;
-			name = "Noto Emoji";
-		};
-	};
+  stylix.fonts = {
+    sizes = {
+      applications = 10;
+    };
+    sansSerif = {
+      package = pkgs.inter;
+      name = "Inter Display";
+    };
+    serif = {
+      package = pkgs.inter;
+      name = "Inter Display";
+    };
+    monospace = {
+      package = pkgs.agave;
+      name = "Agave";
+    };
+    emoji = {
+      package = pkgs.noto-fonts-monochrome-emoji;
+      name = "Noto Emoji";
+    };
+  };
 
-	stylix.targets.console.enable = true;
-	stylix.targets.gtk.enable = true;
-	stylix.targets.nixos-icons.enable = true;
-	stylix.targets.fontconfig.enable = true;
+  stylix.targets.console.enable = true;
+  stylix.targets.gtk.enable = true;
+  stylix.targets.nixos-icons.enable = true;
+  stylix.targets.fontconfig.enable = true;
 }
