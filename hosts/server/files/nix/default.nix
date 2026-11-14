@@ -12,10 +12,13 @@
 
   services.dnsmasq = {
     enable = true;
-    # configFile = ''
-    #   enable-tftp
-    #   tftp-root=/mnt/data/tftp
-    # '';
+    settings = {
+      # we're not actually using the dns server, and it gets into a fight with
+      # presumably systemd.resolved over the port
+      port = 5353;
+      enable-tftp = true;
+      tftp-root = "/mnt/data/tftp";
+    };
   };
 
   system.stateVersion = "26.05";
