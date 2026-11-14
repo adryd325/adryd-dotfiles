@@ -8,14 +8,27 @@
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
     "${ar_dir}/modules/nixos-common/default.nix"
   ];
+
   networking.hostName = "files-nixmigrate";
+
+  networking.firewall = {
+    allowedTCPPorts = [ 69 ];
+    allowedUDPPorts = [ 69 ];
+  };
 
   services.dnsmasq = {
     enable = true;
+
+    # prevent dnsmasq from breaking resolved
+    # https://github.com/NixOS/nixpkgs/blob/f1e5c356f35d07e7b71a6b5e6c9338e0b029e0c0/nixos/modules/system/boot/resolved.nix#L209
+    resolveLocalQueries = false;
+
     settings = {
       # we're not actually using the dns server, and it gets into a fight with
-      # presumably systemd.resolved over the port
-      port = 5353;
+      # systemd-resolved over the port
+      port = 0;
+      listen-address = "0.0.0.0";
+      bind-interfaces = true;
       enable-tftp = true;
       tftp-root = "/mnt/data/tftp";
     };
