@@ -7,11 +7,9 @@
   ...
 }:
 {
-  time.timeZone = "America/Toronto";
-  i18n.defaultLocale = "en_CA.UTF-8";
-
   imports = [
     "${modulesPath}/installer/scan/not-detected.nix"
+    "${ar_dir}/modules/nixos-common/default.nix"
     "${ar_dir}/modules/nixos-desktop/nixos/services/syncthing.nix"
     "${ar_dir}/modules/nixos-desktop/nixos/services/borg.nix"
   ];
@@ -51,7 +49,9 @@
   environment.systemPackages = with pkgs; [
     git
     nixfmt
-    discord
+    (discord.override {
+      withMoonlight = true;
+    })
     parsec-bin
     telegram-desktop
     signal-desktop
@@ -76,6 +76,7 @@
     wl-clipboard
     inkscape
     gimp
+    chromium
   ];
 
   programs.nh = {
@@ -95,6 +96,9 @@
 
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
+
+  systemd.oomd.enable = true;
+  boot.kernel.sysctl."kernel.sysrq" = 1;
 
   # services.desktopManager.pantheon.enable = true;
   # services.xserver.displayManager.lightdm.enable = true;
@@ -130,7 +134,6 @@
   };
 
   programs.firefox.enable = true;
-  programs.chromium.enable = true;
 
   programs.appimage = {
     enable = false;
@@ -149,12 +152,21 @@
     ];
   };
 
+  users.users."work-profile" = {
+    isNormalUser = true;
+    description = "work-profile";
+    initialPassword = "Passw0rd";
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "dialout"
+      "docker"
+    ];
+  };
+
   nix = {
     settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
+      # flakes and nix command enabled in common
       keep-derivations = false;
       keep-outputs = false;
 

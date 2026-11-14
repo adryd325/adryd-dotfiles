@@ -1,0 +1,59 @@
+{
+  "extensions": {
+    "moonbase": true,
+    "disableSentry": true,
+    "noTrack": true,
+    "noHideToken": true,
+    "css": true,
+    "spacepack": {
+      "enabled": true,
+      "config": {
+        "addToGlobalScope": true
+      }
+    },
+    "experiments": {
+      "enabled": true,
+      "config": {
+        "staffSettings": true
+      }
+    },
+    "moonlight-css": {
+      "enabled": true,
+      "config": {
+        "paths": [
+          "/home/adryd/.adryd/modules/discord/moonlight/css/discord.css"
+        ]
+      }
+    },
+    "cleanChatBar": {
+      "enabled": false,
+      "config": {
+        "removedButtons": [
+          "gift",
+          "gif",
+          "sticker"
+        ],
+        "noRandomEmoji": false
+      }
+    },
+    "clearUrls": true,
+    "unminifyReactErrors": true,
+    "nativeFixes": true,
+    "mediaControls": {
+      "enabled": true,
+      "config": {
+        "sources": [
+          "spotify"
+        ]
+      }
+    },
+    "katex": true,
+    "imageViewer": true,
+    "greentext": true,
+    "freeScreenShare": true,
+    "devBanner": true
+  },
+  "repositories": [
+    "https://moonlight-mod.github.io/extensions-dist/repo.json"
+  ]
+}

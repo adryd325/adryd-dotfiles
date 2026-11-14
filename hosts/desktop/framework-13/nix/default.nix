@@ -57,13 +57,7 @@
       fsType = "btrfs";
       options = [ "subvol=nixos-root,compress=zstd,ssd,noatime,discard" ];
     };
-
-    "/fedora-root" = {
-      device = "/dev/mapper/luks--fcaa015b-b33e-44cd-ad40-3380632eb3b9";
-      fsType = "btrfs";
-      options = [ "subvol=fedora-root,compress=zstd,ssd,noatime,discard" ];
-    };
-
+    
     "/home" = {
       device = "/dev/mapper/luks--fcaa015b-b33e-44cd-ad40-3380632eb3b9";
       fsType = "btrfs";

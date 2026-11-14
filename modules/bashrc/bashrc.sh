@@ -145,8 +145,8 @@ function ar::bashrc::history {
 	shopt -s histappend
 	# Combine multiline commands into one in history
 	shopt -s cmdhist
-	# Ignore duplicates
-	HISTCONTROL=ignoredups
+	# Ignore duplicates and ignore commands prefixed with space
+	HISTCONTROL=ignoreboth
 	# Ignore ls without options and builtin commands
 	export HISTIGNORE="&:ls:[bf]g:exit"
 }

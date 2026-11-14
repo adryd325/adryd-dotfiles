@@ -21,7 +21,12 @@
   };
 
   outputs =
-    { self, nixpkgs, laminix, stylix }@inputs:
+    {
+      self,
+      nixpkgs,
+      laminix,
+      stylix,
+    }@inputs:
     let
       baseSystem = {
         args = {
@@ -38,12 +43,21 @@
       };
     in
     {
-      nixosConfigurations."framework-13" = nixpkgs.lib.nixosSystem rec { 
+      nixosConfigurations."framework-13" = nixpkgs.lib.nixosSystem rec {
         specialArgs = baseSystem.args;
-				system = "x86_64-linux";
+        system = "x86_64-linux";
         modules = baseSystem.modules ++ [
-					./allowUnfree.nix
+          ./allowUnfree.nix
           ../hosts/desktop/framework-13/nix/default.nix
+        ];
+      };
+
+      nixosConfigurations."files-nixosmigrate" = nixpkgs.lib.nixosSystem rec {
+        specialArgs = baseSystem.args;
+        system = "x86_64-linux";
+        modules = baseSystem.modules ++ [
+          ./allowUnfree.nix
+          ../hosts/server/files/nix/default.nix
         ];
       };
     };

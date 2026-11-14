@@ -19,7 +19,7 @@ let
   '';
 
   beforeStartScript = pkgs.writeShellScript "borg_preHook.sh" ''
-    # waiting for internet after resume-from-suspend
+    # waiting for internet after resume from suspend
     until ${lib.getExe' pkgs.iputils "ping"} your-storagebox.de -c1 -q >/dev/null; do :; done
     
     export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/''${UID}/bus
@@ -27,7 +27,7 @@ let
     export DISPLAY=:0
     
     ${lib.getExe' pkgs.libnotify "notify-send"} --app-name="Borg" -u critical --wait --transient \
-      "Backups is starting momentarily." "Make sure 1Password is running for password prompts and SSH to succeed" &
+      "Backups are starting momentarily." "Make sure 1Password is running for password prompts and SSH to succeed" &
     NOTIF_PID=$!
     sleep 15
     ${lib.getExe' pkgs.coreutils "kill"} -s int $NOTIF_PID || true

@@ -20,11 +20,14 @@ Host borg-framework-13
   User u620994-sub1
   ServerAliveInterval 10
   ServerAliveCountMax 30
-  # Humber eduroam blocks port 23
-  # ProxyJump adryd.com
 
-# Humber
+# work infra
+Host proxmox1
+  HostName humberbcti.ca
+  Port 2814
+
 Host unity1
   HostKeyAlgorithms ssh-rsa 
   User service
-  HostName fe80::260:1600:47e0:11a8%%enp195s0f3u1c2
+  HostName 192.168.130.8
+  ProxyJump proxmox1

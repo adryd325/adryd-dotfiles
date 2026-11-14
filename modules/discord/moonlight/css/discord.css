@@ -59,3 +59,9 @@ code.inline,
 .mediaControls [class^="mediaBarProgress"]:after {
   background-color: var(--text-default);
 }
+
+[class^="devBanner"] {
+  border-radius: calc(var(--radius-sm) - 1px) calc(var(--radius-sm) - 1px) 0 0;
+  outline: 1px solid var(--background-feedback-mod-positive);
+  background-color: var(--background-feedback-mod-positive) !important;
+}

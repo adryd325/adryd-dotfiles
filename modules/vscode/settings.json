@@ -28,6 +28,6 @@
   "[nix]": {
     "editor.defaultFormatter": "jnoortheen.nix-ide"
   },
-  // end manually configured section
+  // -- end manually configured section -- 
   "workbench.colorTheme": "Mellow-Minimal"
 }
