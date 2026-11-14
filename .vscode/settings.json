@@ -10,9 +10,10 @@
   },
   "[markdown]": {
     "editor.rulers": [80],
-    "editor.wordWrap": "off",
+    "editor.wordWrap": "off"
   },
   "[nix]": {
-    "editor.defaultFormatter": "jnoortheen.nix-ide"
+    "editor.defaultFormatter": "jnoortheen.nix-ide",
+    "editor.formatOnSave": true
   }
 }
