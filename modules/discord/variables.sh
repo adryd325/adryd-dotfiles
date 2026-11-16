@@ -4,7 +4,7 @@ hhDir=${hhDir:="${HOME}/_/hh3"}
 moonlightDir=${moonlightDir:="${HOME}/_/moonlight"}
 moonlightExtensionsDir=${moonlightExtensionsDir:="${HOME}/_/moonlight-extensions-flagship"}
 moonlightPrivateDir=${moonlightPrivateDir:="${HOME}/_/moonlight-extensions-private"}
-if [[ "$(ar_get_distro)" == "macos" ]]; then
+if [[ "$(ar::get_distro)" == "macos" ]]; then
     hhConfigDir=${hhConfigDir:="${HOME}/Library/Application Support/hh3"}
     moonlightConfigDir=${moonlightConfigDir:="${HOME}/Library/Application Support/moonlight-mod"}
 else
@@ -76,7 +76,7 @@ function get_discord_config_name {
 
 function get_discord_installation_path {
     branch=$1
-    if [[ "$(ar_get_distro)" == "macos" ]]; then
+    if [[ "$(ar::get_distro)" == "macos" ]]; then
         echo "/Applications/$(get_discord_pretty_name "${branch}").app/"
     else
         echo "${HOME}/.local/share/$(get_discord_binary_name "${branch}")/"

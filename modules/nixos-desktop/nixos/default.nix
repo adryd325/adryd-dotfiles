@@ -1,4 +1,6 @@
 {
+  system,
+  self,
   inputs,
   pkgs,
   username,
@@ -9,7 +11,6 @@
 {
   imports = [
     "${modulesPath}/installer/scan/not-detected.nix"
-    "${ar_dir}/modules/nixos-common/default.nix"
     "${ar_dir}/modules/nixos-desktop/nixos/services/syncthing.nix"
     "${ar_dir}/modules/nixos-desktop/nixos/services/borg.nix"
   ];
@@ -47,11 +48,8 @@
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
-    git
     nixfmt
-    (discord.override {
-      withMoonlight = true;
-    })
+    discord
     parsec-bin
     telegram-desktop
     signal-desktop
@@ -77,6 +75,7 @@
     inkscape
     gimp
     chromium
+    self.packages.${system}.moonlight-launcher
   ];
 
   programs.nh = {

@@ -105,14 +105,14 @@ function ar::bashrc::get_kernel {
 }
 
 function ar::bashrc::get_distro {
-	if [[ "$(ar::get_kernel)" = "linux" ]] && [[ -f /etc/os-release ]]; then
+	if [[ "$(ar::bashrc::get_kernel)" = "linux" ]] && [[ -f /etc/os-release ]]; then
 		local id
 		id=$(grep -i ^ID= /etc/os-release)
 		id=${id/ID=/}
 		tr '[:upper:]' '[:lower:]' <<<"${id/ /}" | sed 's/^arch$/archlinux/'
 		return 0
 	fi
-	if [[ "$(ar::get_kernel)" = "darwin" ]]; then
+	if [[ "$(ar::bashrc::get_kernel)" = "darwin" ]]; then
 		if [[ "$(sw_vers -productName)" = "macOS" ||
 		"$(sw_vers -productName)" = "Mac OS X" ]]; then
 			echo "macos"

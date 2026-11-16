@@ -166,7 +166,7 @@ function ar::get_distro {
 	if [[ "$(ar::get_kernel)" = "linux" ]] && [[ -f /etc/os-release ]]; then
 		local id
 		id=$(grep -i ^ID= /etc/os-release)
-		id=${id/ID=//}
+		id=${id/ID=/}
 		tr '[:upper:]' '[:lower:]' <<<"${id/ /}" | sed 's/^arch$/archlinux/'
 		return 0
 	fi

@@ -8,20 +8,18 @@
 }:
 
 {
+  system.stateVersion = "26.05";
+  networking.hostName = "framework-13";
+
   imports = [
     ./no-airplane-mode-switch/default.nix
     "${ar_dir}/modules/nixos-desktop/nixos/default.nix"
     "${ar_dir}/modules/no-yubikey-keyboard/default.nix"
-		"${modulesPath}/installer/scan/not-detected.nix"
+    "${modulesPath}/installer/scan/not-detected.nix"
   ];
 
-  networking.hostName = "framework-13";
-
-  # Initial state. Don't change this
-  system.stateVersion = "26.05"; 
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  
+
   services.fwupd.enable = true;
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
@@ -33,7 +31,7 @@
         efi /EFI/fedora/grubx64.efi
       '';
     };
-    
+
     initrd = {
       availableKernelModules = [
         "nvme"
@@ -57,7 +55,7 @@
       fsType = "btrfs";
       options = [ "subvol=nixos-root,compress=zstd,ssd,noatime,discard" ];
     };
-    
+
     "/home" = {
       device = "/dev/mapper/luks--fcaa015b-b33e-44cd-ad40-3380632eb3b9";
       fsType = "btrfs";

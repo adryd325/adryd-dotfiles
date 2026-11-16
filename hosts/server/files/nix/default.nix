@@ -4,12 +4,12 @@
   ...
 }:
 {
+  system.stateVersion = "26.05";
+  networking.hostName = "files-nixmigrate";
+
   imports = [
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
-    "${ar_dir}/modules/nixos-common/default.nix"
   ];
-
-  networking.hostName = "files-nixmigrate";
 
   networking.firewall = {
     allowedTCPPorts = [ 69 ];
@@ -33,6 +33,4 @@
       tftp-root = "/mnt/data/tftp";
     };
   };
-
-  system.stateVersion = "26.05";
 }

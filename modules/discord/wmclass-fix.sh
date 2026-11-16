@@ -5,8 +5,8 @@ source ../../lib.sh
 source ./variables.sh
 AR_MODULE="discord wmclass-fix"
 
-if [[ "$(ar_get_distro)" == "macos" ]]; then
-    log info "Not applicable to macos"
+if ar::is_macos || ar::is_nixos; then
+    ar::log info "Not applicable to $(ar::get_distro)"
     exit 1
 fi
 
@@ -20,10 +20,10 @@ function patch_branch {
         # TODO: Create a package.json and app bootstrap that loads the real asar in the case
         # hh isnt already installed
         if ! [[ -d "${installationDir}/resources/app" ]] && [[ -x "$(command -v asar)" ]]; then
-            log info "Extracting asar"
+            ar::log info "Extracting asar"
             asar e "${installationDir}/resources/app.asar" "${installationDir}/resources/app"
         fi
-        log info "Patching"
+        ar::log info "Patching"
         sed -i "s/discord/${pkgName}/" "${installationDir}/resources/app/package.json"
     fi
 }
@@ -31,7 +31,7 @@ function patch_branch {
 if [[ $# -gt 0 ]]; then
     for branch in "$@"; do
         if ! is_valid_discord_branch "${branch}"; then
-            log warn "The branch \"${branch}\" does not exist"
+            ar::log warn "The branch \"${branch}\" does not exist"
             continue
         fi
         patch_branch "${branch}" &
