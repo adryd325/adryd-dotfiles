@@ -164,11 +164,10 @@ function ar::get_kernel {
 #######################################
 function ar::get_distro {
 	if [[ "$(ar::get_kernel)" = "linux" ]] && [[ -f /etc/os-release ]]; then
-		# This isn't ideal but neofetch does it /shrug
-		# shellcheck disable=SC1091
-		source /etc/os-release
-		# shellcheck disable=SC2154
-		tr '[:upper:]' '[:lower:]' <<<"${ID/ /}" | sed 's/^arch$/archlinux/'
+		local id
+		id=$(grep -i ^ID= /etc/os-release)
+		id=${id/ID=//}
+		tr '[:upper:]' '[:lower:]' <<<"${id/ /}" | sed 's/^arch$/archlinux/'
 		return 0
 	fi
 	if [[ "$(ar::get_kernel)" = "darwin" ]]; then
