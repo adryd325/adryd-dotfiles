@@ -6,8 +6,6 @@ for dir in "${HOME}/.adryd" "${HOME}/.adrydnx" /opt/adryd-dotfiles; do
 		break
 	fi
 done
-# shellcheck source=../../lib.sh
-source "${AR_DIR}/lib.sh"
 
 function ar::prompt::exit_code_color() {
 	if [[ ${ar_lastexit} -eq 0 ]]; then
@@ -102,6 +100,33 @@ function ar::prompt() {
 	unset ar_lastexit
 }
 
+function ar::bashrc::get_kernel {
+	uname -s | tr '[:upper:]' '[:lower:]'
+}
+
+function ar::bashrc::get_distro {
+	if [[ "$(ar::get_kernel)" = "linux" ]] && [[ -f /etc/os-release ]]; then
+		local id
+		id=$(grep -i ^ID= /etc/os-release)
+		id=${id/ID=//}
+		tr '[:upper:]' '[:lower:]' <<<"${id/ /}" | sed 's/^arch$/archlinux/'
+		return 0
+	fi
+	if [[ "$(ar::get_kernel)" = "darwin" ]]; then
+		if [[ "$(sw_vers -productName)" = "macOS" ||
+		"$(sw_vers -productName)" = "Mac OS X" ]]; then
+			echo "macos"
+			return 0
+		elif [[ "$(sw_vers -productName)" = "iPhone OS" ]]; then
+			echo "ios"
+			return 0
+		fi
+		return 0
+	fi
+	echo "unknown"
+	return 1
+}
+
 function ar::bashrc::has_path {
 	mapfile -td ':' splitPath <<<"${PATH}"
 	includes=1
@@ -127,10 +152,12 @@ function ar::bashrc::path {
 	done
 
 	# Homebrew on macOS
-	[[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+	if [[ "$(ar::bashrc::get_distro)" = "macos" ]]; then
+		[[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+	fi
 
 	# nix multi-user on linux
-	if ! ar::is_nixos && [[ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]]; then
+	if ! [[ "$(ar::bashrc::get_distro)" = "nixos" ]] && [[ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]]; then
 		. '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 	fi
 
