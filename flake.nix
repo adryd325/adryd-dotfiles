@@ -99,7 +99,7 @@
         ];
       };
 
-      nixosConfigurations."files-nixosmigrate" = nixpkgs.lib.nixosSystem rec {
+      nixosConfigurations."files" = nixpkgs.lib.nixosSystem rec {
         specialArgs = baseSystem.args;
         system = "x86_64-linux";
         modules = baseSystem.modules ++ [

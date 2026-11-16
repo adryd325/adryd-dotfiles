@@ -21,6 +21,12 @@ Host borg-framework-13
   ServerAliveInterval 10
   ServerAliveCountMax 30
 
+# lemon containers
+
+Host files
+  HostName 10.142.0.104
+  User root
+
 # work infra
 Host proxmox1
   HostName humberbcti.ca
