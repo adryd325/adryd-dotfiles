@@ -161,6 +161,26 @@
         "type": "gitlab"
       }
     },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794865930,
+        "narHash": "sha256-a3My+u9CEwEFmuGXb3PV9COj7Gd8o28b19TvtDiKPfg=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "9d7ba6bef3904a018d38b92f83132eaf01eb8ef3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "laminix": {
       "inputs": {
         "nixpkgs": [
@@ -225,6 +245,7 @@
     "root": {
       "inputs": {
         "fenix": "fenix",
+        "home-manager": "home-manager",
         "laminix": "laminix",
         "nixpkgs": "nixpkgs",
         "stylix": "stylix"

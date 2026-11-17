@@ -1,5 +1,13 @@
-{ username, ar_dir, self, inputs... }: {
-
+{
+  username,
+  ar_dir,
+  self,
+  inputs,
+  config,
+  system,
+  ...
+}:
+{
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -12,6 +20,7 @@
         ar_dir
         ;
 
+      system = system;
       host = config.networking.hostName;
       os_config = config;
 
@@ -20,6 +29,7 @@
     };
 
     users.${username} = {
+      home.stateVersion = "26.05";
       imports = [
         "${ar_dir}/modules/nixos-desktop/home-manager/default.nix"
       ];

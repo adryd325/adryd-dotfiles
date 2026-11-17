@@ -17,6 +17,11 @@
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -39,6 +44,7 @@
         modules = [
           inputs.laminix.nixosModules.default
           inputs.stylix.nixosModules.stylix
+          inputs.home-manager.nixosModules.default
           ({ pkgs, ... }: {
             time.timeZone = "America/Toronto";
             i18n.defaultLocale = "en_CA.UTF-8";
