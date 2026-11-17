@@ -6,6 +6,7 @@
   username,
   ar_dir,
   modulesPath,
+  lib,
   ...
 }:
 {
@@ -13,6 +14,7 @@
     "${modulesPath}/installer/scan/not-detected.nix"
     "${ar_dir}/modules/nixos-desktop/nixos/services/syncthing.nix"
     "${ar_dir}/modules/nixos-desktop/nixos/services/borg.nix"
+    ./home-manager.nix
   ];
 
   environment.laminix.enable = true;

@@ -2,15 +2,17 @@
 # MANUAL INTERVENTION: Must be connected to lemon VPN
 # TODO: Centralize device IDs definition
 { username, ... }: {
-  systemd.targets.multi-user.wants = [ "syncthing@${username}.service" ];
+
   services.syncthing = {
     enable = true;
     openDefaultPorts = true;
-    systemService = false;
+    user = "${username}";
+    group = "users";
+    configDir = "/home/${username}/.config/syncthing";
     settings = {
       devices = {
-        "framework-13".id = "E42ASWH-ZJWKXPS-65ALTV3-V6OQQCA-B2C7EJL-H6PAVNG-QKSTFLO-7QNY6A4";
-        "files".id = "QARP7UB-44GHWXM-CENDNUG-YEKH7VD-WGZLSMH-FO6HF26-WDSP675-6J2Y7AI";
+        "framework-13".id = "K3UUY5R-RHUMWZZ-TVE3TP4-AVGKEED-3EIB5UR-TUYUMXN-KAYIOXB-Y7UOPAL";
+        "files".id = "XUBIHUH-TZSUAUL-TA5AOWG-JIN6TES-UQY2RGQ-34SSLOD-K76RLNQ-SBTMRQV";
       };
       folders = {
         "mprod" = {
