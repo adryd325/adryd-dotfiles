@@ -45,6 +45,7 @@
       luks.devices."luks--fcaa015b-b33e-44cd-ad40-3380632eb3b9".device =
         "/dev/disk/by-uuid/fcaa015b-b33e-44cd-ad40-3380632eb3b9";
     };
+    kernelParams = [ "amdgpu.abmlevel=0" ];
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
   };
