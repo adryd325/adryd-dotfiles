@@ -13,5 +13,5 @@ AR_MODULE="framework-13"
 wait
 
 ar::log info "Building and switching flake"
-sudo nixos-rebuild boot --flake ../../../nix
-sudo nixos-rebuild switch --flake ../../../nix
+sudo nixos-rebuild boot --flake ../../.#framework-13
+sudo nixos-rebuild switch --flake ../../.#framework-13
